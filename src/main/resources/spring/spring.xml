@@ -14,5 +14,14 @@
     <dubbo:registry address="zookeeper://192.168.247.128:2181"/>
     <!--    3.扫描类（将什么包下的类作为服务提供类）-->
     <dubbo:annotation package="controller"/>
+    <!-- 让监控 去注册中心 自动找服务 -->
+    <dubbo:monitor protocol="registry"/>
+    <!--默认是true:抛异常；false:不抛异常-->
+    <!--    <dubbo:consumer check="false"/>-->
+    <!--    设置相关方法重试次数，就不需要在service端全局设置了-->
+    <dubbo:reference interface="service.HelloService" id="helloService"><!-- helloService代表远程获取helloService对象-->
+        <dubbo:method name="sayHello" retries="3"/>
+        <dubbo:method name="sayNo" retries="0"/>
+    </dubbo:reference>
 </beans>
 
